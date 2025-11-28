@@ -1,5 +1,6 @@
 open Gfile
 open Tools
+(*open Fold_fulkerson*)
     
 let () =
 
@@ -33,8 +34,12 @@ let () =
   let () = write_file outfile2 (gmap add_arc_result string_of_int)
 
   in 
-
   let () = export "graphs/test2.txt" (gmap graph string_of_int)
   
-  in ()
+  (*
+  in
+  let () = export "graphs/testGAP.txt" (gmap (gap_graph graph) string_of_int)
+  *)
+  
+in ()
 
