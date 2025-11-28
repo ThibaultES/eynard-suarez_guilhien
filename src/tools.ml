@@ -1,6 +1,7 @@
 open Graph
 
 let clone_nodes gr = Graph.n_fold gr (fun g x -> Graph.new_node g x) Graph.empty_graph 
+
 let gmap gr f = 
   e_fold gr  (fun g2 arc ->  (Graph.new_arc g2 {src = arc.src; tgt = arc.tgt; lbl = (f arc.lbl)}))  (clone_nodes gr)
 
