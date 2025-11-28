@@ -34,7 +34,7 @@ let () =
 
   in 
 
-  let () = export "/home/corentin/Documents/insa/Cours/4A/ProjetOcaml/eynard-suarez_guilhien/graphs/test.txt" (gmap graph string_of_int)
+  let () = export "graphs/test2.txt" (gmap graph string_of_int)
   
   in ()
 
