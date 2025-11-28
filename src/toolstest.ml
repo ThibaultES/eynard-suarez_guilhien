@@ -30,5 +30,11 @@ let () =
 
   (* Rewrite the graph that has been read. *)
   let () = write_file outfile clone_node_result in 
-  let () = write_file outfile2 (gmap add_arc_result string_of_int) in ()
+  let () = write_file outfile2 (gmap add_arc_result string_of_int)
+
+  in 
+
+  let () = export "/Users/thibault/Documents/Cours/4IR/Prog_fonc/eynard-suarez_guilhien/graphs/test1.txt" graph
+  
+  in ()
 

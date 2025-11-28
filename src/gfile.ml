@@ -112,3 +112,13 @@ let from_file path =
   close_in infile ;
   final_graph
   
+
+let export path graph = 
+  let ff = open_out path in 
+  fprintf ff "digraph finite_state_machine {\n" ;
+  fprintf ff "rankdir=LR;\n" ;
+  e_iter graph (fun arc -> fprintf ff " %d -> %d ;\n" arc.src arc.tgt );
+  fprintf ff "}" ;
+  close_out ff ;
+  ()
+
