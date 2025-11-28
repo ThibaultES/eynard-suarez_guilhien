@@ -4,7 +4,7 @@ open Tools
 let () =
 
   (* Check the number of command-line arguments *)
-  if Array.length Sys.argv <> 3 then
+  if Array.length Sys.argv <> 4 then
     begin
       Printf.printf
         "\n ✻  Usage: %s infile source sink outfile\n\n%s%!" Sys.argv.(0)
@@ -34,7 +34,7 @@ let () =
 
   in 
 
-  let () = export "/Users/thibault/Documents/Cours/4IR/Prog_fonc/eynard-suarez_guilhien/graphs/test1.txt" graph
+  let () = export "/home/corentin/Documents/insa/Cours/4A/ProjetOcaml/eynard-suarez_guilhien/graphs/test.txt" (gmap graph string_of_int)
   
   in ()
 
