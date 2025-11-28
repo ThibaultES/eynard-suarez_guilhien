@@ -11,3 +11,7 @@ let gap_graph graph = (* gr : graphe dont les labels sont des tuples (flux, capa
       | _,_ -> g2
       )
   )  (clone_nodes graph)
+
+
+let test_graph graph =
+  gmap graph (fun id -> (id / 2, id))

@@ -1,6 +1,6 @@
 open Gfile
 open Tools
-(*open Fold_fulkerson*)
+open Fold_fulkerson
     
 let () =
 
@@ -36,10 +36,10 @@ let () =
   in 
   let () = export "graphs/test2.txt" (gmap graph string_of_int)
   
-  (*
+  
   in
-  let () = export "graphs/testGAP.txt" (gmap (gap_graph graph) string_of_int)
-  *)
+  let () = export "graphs/testGAP.txt" (gmap (gap_graph (test_graph graph)) string_of_int)
+  
   
 in ()
 
