@@ -115,10 +115,13 @@ let from_file path =
 
 let export path graph = 
   let ff = open_out path in 
-  fprintf ff "digraph finite_state_machine {\n" ;
-  fprintf ff "rankdir=LR;\n" ;
+  fprintf ff "digraph finite_state_machine {\n
+    fontname=\"Helvetica,Arial,sans-serif\"\n
+	  node [fontname=\"Helvetica,Arial,sans-serif\"]\n
+	  edge [fontname=\"Helvetica,Arial,sans-serif\"]\n
+    rankdir=LR;\n" ;
   n_iter graph (fun id -> fprintf ff "%d;\n" id);
-  e_iter graph (fun arc -> fprintf ff " %d -> %d ;\n" arc.src arc.tgt );
+  e_iter graph (fun arc -> fprintf ff " %d -> %d [label = \"%s\"];\n" arc.src arc.tgt arc.lbl);
   fprintf ff "}" ;
   close_out ff ;
   ()
