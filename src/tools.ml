@@ -8,3 +8,7 @@ let gmap gr f =
 let add_arc g id1 id2 n = match find_arc g id1 id2 with 
 | None -> new_arc g {src = id1; tgt = id2; lbl = n}
 | Some(arc) -> new_arc g {src = id1; tgt = id2; lbl = arc.lbl + n}
+
+let size graph = 
+  Graph.n_fold graph (fun acc _ -> acc + 1) 0
+  

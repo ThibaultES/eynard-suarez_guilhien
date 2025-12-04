@@ -8,3 +8,6 @@ val gmap: 'a graph -> ('a -> 'b) -> 'b graph
 
 (* add_arc g id1 id2 n : adds n to the value of the arc between id1 and id2. If the arc does not exist, it is created *)
 val add_arc: int graph -> id -> id -> int -> int graph
+
+(* size g : returns the size (number of nodes) of g *)
+val size: 'a graph -> int
