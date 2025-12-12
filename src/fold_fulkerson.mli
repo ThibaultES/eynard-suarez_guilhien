@@ -14,3 +14,5 @@ val get_min_capa : int graph -> id list -> int
 
 (* Fonction mettant a jour le graphe d'écart en fonction du chemin trouvé *)
 val update_graph: int graph -> id list -> id -> int graph
+
+val ford_fulkerson: int graph -> id -> id -> string graph
