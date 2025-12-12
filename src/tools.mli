@@ -11,3 +11,5 @@ val add_arc: int graph -> id -> id -> int -> int graph
 
 (* size g : returns the size (number of nodes) of g *)
 val size: 'a graph -> int
+
+val out_arcs_no_null : int graph -> id -> int arc list
