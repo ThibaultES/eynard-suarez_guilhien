@@ -1,5 +1,7 @@
 open Gfile
-    
+open Tools
+open Fold_fulkerson  
+
 let () =
 
   (* Check the number of command-line arguments *)
@@ -26,10 +28,17 @@ let () =
   in
 
   (* Open file *)
-  let graph = from_file infile in
+  let graph = int_graph_of_string (from_file infile) in
+
+  let () = display_list (bfs graph _source _sink) in 
+  let () = Printf.printf "La capacité minimal le long de ce chemin est %d" (get_min_capa graph (bfs graph _source _sink)) in
+
+  (*A lancer sur graph2.txt *)
+  let path1 = [0; 3; 8; 11; 9; 10; 12] in 
+  let () = Printf.printf "La capacité minimal le long de ce chemin est %d" (get_min_capa graph path1) in
 
   (* Rewrite the graph that has been read. *)
-  let () = write_file outfile graph in
+  let () = write_file outfile (gmap graph string_of_int) in
 
   ()
 
