@@ -16,7 +16,7 @@ let gap_graph graph = (* gr : graphe dont les labels sont des tuples (flux, capa
 let test_graph graph =
   gmap graph (fun id -> (id / 2, id))
 
-let bfs graph s p =
+let bfs graph s p =   (* TODO : verifier qu'on prend pas des arcs de flot nul *)
   let queue = Queue.create () in
   Queue.add s queue; 
   let paths = Array.make (Tools.size graph) [] in 
@@ -32,3 +32,15 @@ let bfs graph s p =
     aux_bfs()
        (* Itération suivante *)
   in aux_bfs ()
+
+
+let get_min_capa graph path = ()
+
+
+let rec update_graph graph path flow_to_add = match path with
+  | [] -> graph (* finir / en fait on arrive jamais ici ? sauf si c'est ce dont on part *)
+  | _::[] -> graph (* on a vu tous les arcs => finir *)
+  | x::y::p -> let graphXY = (add_arc graph x y flow_to_add) in let graphYX  = (add_arc graphXY y x (-flow_to_add)) in
+    update_graph graphYX (y::p) flow_to_add
+    
+
