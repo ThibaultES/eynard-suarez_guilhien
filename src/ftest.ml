@@ -33,6 +33,7 @@ let () =
   let () = display_list (bfs graph _source _sink) in 
   let () = Printf.printf "La capacité minimal le long de ce chemin est %d" (get_min_capa graph (bfs graph _source _sink)) in
 
+  (*A lancer sur graph2.txt *)
   let path1 = [0; 3; 8; 11; 9; 10; 12] in 
   let () = Printf.printf "La capacité minimal le long de ce chemin est %d" (get_min_capa graph path1) in
 
