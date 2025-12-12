@@ -13,3 +13,7 @@ val add_arc: int graph -> id -> id -> int -> int graph
 val size: 'a graph -> int
 
 val out_arcs_no_null : int graph -> id -> int arc list
+
+val display_list : int list -> unit
+
+val int_graph_of_string: string graph -> int graph
