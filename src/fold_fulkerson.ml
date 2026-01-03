@@ -20,7 +20,7 @@ let test_graph graph =
 let flow_graph capa_graph gap_graph =
   e_fold gap_graph (fun g arc -> match find_arc capa_graph arc.src arc.tgt with
     | None -> g
-    | Some arc_capa -> new_arc g {src = arc.src; tgt = arc.tgt; lbl = "("^(string_of_int arc.lbl)^"/"^(string_of_int arc_capa.lbl)^")"}
+    | Some arc_capa -> new_arc g {src = arc.src; tgt = arc.tgt; lbl = "("^(string_of_int (arc_capa.lbl - arc.lbl))^"/"^(string_of_int (arc_capa.lbl - arc_capa.lbl))^")"}
   ) (clone_nodes gap_graph)
 
 
