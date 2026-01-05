@@ -13,6 +13,9 @@ let add_arc g id1 id2 n = match find_arc g id1 id2 with
 
 let size graph = 
   Graph.n_fold graph (fun acc _ -> acc + 1) 0
+
+let arc_size graph = 
+  Graph.e_fold graph (fun acc _ -> acc + 1) 0
   
 let out_arcs_no_null graph v = 
   let rec aux list_arc acu = match list_arc with 

@@ -23,7 +23,11 @@ let flow_graph capa_graph gap_graph =
     | Some arc_capa -> new_arc g {src = arc.src; tgt = arc.tgt; lbl = "("^(string_of_int (arc_capa.lbl - arc.lbl))^"/"^(string_of_int (arc_capa.lbl - arc_capa.lbl))^")"}
   ) (clone_nodes gap_graph)
 
-
+let flow_graph_no_parent capa_graph gap_graph =
+  e_fold gap_graph (fun g arc -> match find_arc capa_graph arc.src arc.tgt with
+    | None -> g
+    | Some arc_capa -> new_arc g {src = arc.src; tgt = arc.tgt; lbl = string_of_int (arc_capa.lbl - arc.lbl)}
+  ) (clone_nodes gap_graph)
 
 
 
@@ -38,7 +42,7 @@ let get_min_capa graph path =
                 )
 in aux_get_min_capa graph path max_int
 
-let bfs graph s p =   (* TODO : verifier qu'on prend pas des arcs de flot nul *)
+let bfs graph s p =
   let queue = Queue.create () in
   Queue.add s queue; 
   let paths = Array.make (Tools.size graph) [] in 
@@ -67,5 +71,5 @@ let ford_fulkerson graph s p =
   let path = bfs gap_graph s p in match path with
     | [] -> gap_graph
     | _ -> aux_fulkerson (update_graph gap_graph path (get_min_capa gap_graph path))
-in flow_graph graph (aux_fulkerson graph)
+in flow_graph_no_parent graph (aux_fulkerson graph) (* !!! flow_graph_no_parent !!!*)
 

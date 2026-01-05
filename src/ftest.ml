@@ -1,6 +1,18 @@
 open Gfile
 open Tools
-open Fold_fulkerson  
+(* open Fold_fulkerson *)
+open Successive_shortest_path
+
+(* Pour les tests *)
+open Graph
+let cost_graph_6 = [|1; 2; 3; 4; 3; 2; 1; 3; 4|]
+let input_graph (graph : 'flow graph) cost_graph_list : ('flow * 'cost) graph =
+  let i = ref (-1) in
+  e_fold graph (fun acc_graph arc -> i := !i + 1 ;
+    new_arc acc_graph {src = arc.src; tgt = arc.tgt; lbl = (arc.lbl, cost_graph_list.(!i))}
+  ) (clone_nodes graph)
+(* fin*)
+
 
 let () =
 
@@ -29,7 +41,9 @@ let () =
 
   (* Open file *)
   let graph = int_graph_of_string (from_file infile) in
-  let gap_graph = ford_fulkerson graph 0 5 in 
+  (* let gap_graph = ford_fulkerson graph 0 5 in *)
+  let gap_graph = successive_shortest_path (input_graph graph cost_graph_6) 0 5 in
+
 
   (*
   let () = display_list (bfs graph _source _sink) in 
