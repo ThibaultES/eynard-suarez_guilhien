@@ -6,6 +6,7 @@ type cost = int
 type 'cost heap = {
   mutable size : int;
   mutable data : (id * 'cost) array;
+  pos : (id, int) Hashtbl.t;   (* id -> index *)
 }
 
 
