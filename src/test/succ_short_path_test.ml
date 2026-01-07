@@ -21,9 +21,6 @@ let snd_of_3 (_,b,_) = b
 let trd_of_3 (_,_,c) = c
 
 
-
-
-
 let () =
 
   (* Check the number of command-line arguments *)
@@ -52,23 +49,12 @@ let () =
   let input = from_file_with_cost infile in
   (* Open file *)
   let graph = adapt_input_with_cost (fst_of_3 input) (snd_of_3 input) (trd_of_3 input) in
-  (* let gap_graph = ford_fulkerson graph 0 5 in *)
   let n = size graph in 
 
   let gap_graph = successive_shortest_path graph (n-2) (n-1) in
 
-  (*let final_graph = remove_additional_nodes gap_graph in *)
-  let final_graph = gap_graph in
+  let final_graph = remove_additional_nodes gap_graph in
 
-
-  (*
-  let () = display_list (bfs graph _source _sink) in 
-  let () = Printf.printf "La capacité minimal le long de ce chemin est %d" (get_min_capa graph (bfs graph _source _sink)) in
-
-  (*A lancer sur graph2.txt *)
-  let path1 = [0; 3; 8; 11; 9; 10; 12] in 
-  let () = Printf.printf "La capacité minimal le long de ce chemin est %d" (get_min_capa graph path1) in
-*)
   (* Rewrite the graph that has been read. *)
   let () = write_file outfile final_graph in
 

@@ -54,7 +54,11 @@ let write_file path graph =
 
 (* Reads a line with a node. *)
 let read_node graph line =
-  try Scanf.sscanf line "n %f %f %d" (fun _ _ id -> new_node graph id)
+  try Scanf.sscanf line "n %f %f %d %s" (fun _ _ id typ -> match typ with
+   | "src" -> (new_node graph id, id, true,  false)
+   | "snk" -> (new_node graph id, id, false, true )
+   | _ ->     (new_node graph id, id, false, false)
+   )
   with e ->
     Printf.printf "Cannot read node in line - %s:\n%s\n%!" (Printexc.to_string e) line ;
     failwith "from_file"
@@ -65,8 +69,8 @@ let ensure graph id = if node_exists graph id then graph else new_node graph id
 
 (* Reads a line with an arc. *)
 let read_arc graph line =
-  try Scanf.sscanf line "e %d %d %_d %s@%%"
-        (fun src tgt lbl -> let lbl = String.trim lbl in new_arc (ensure (ensure graph src) tgt) { src ; tgt ; lbl } )
+  try Scanf.sscanf line "e %d %d %_d %d"
+        (fun src tgt lbl -> new_arc (ensure (ensure graph src) tgt) { src ; tgt ; lbl } )
   with e ->
     Printf.printf "Cannot read arc in line - %s:\n%s\n%!" (Printexc.to_string e) line ;
     failwith "from_file"
@@ -79,6 +83,9 @@ let read_comment graph line =
     failwith "from_file"
 
 let from_file path =
+
+  let src_list = ref [] in
+  let snk_list = ref [] in
 
   let infile = open_in path in
 
@@ -96,7 +103,11 @@ let from_file path =
 
         (* The first character of a line determines its content : n or e. *)
         else match line.[0] with
-          | 'n' -> read_node graph line
+          | 'n' -> let next_iter = read_node graph line in (match next_iter with 
+            | g, id,  true, _ -> src_list := id :: !src_list ; g
+            | g, id,  _ , true -> snk_list := id :: !snk_list; g
+            | g, _, _, _ -> g
+          )
           | 'e' -> read_arc graph line
 
           (* It should be a comment, otherwise we complain. *)
@@ -110,7 +121,7 @@ let from_file path =
   let final_graph = loop empty_graph in
   
   close_in infile ;
-  final_graph
+  final_graph, !src_list, !snk_list
 
 
 

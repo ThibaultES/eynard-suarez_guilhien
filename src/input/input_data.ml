@@ -43,5 +43,5 @@ let adapt_input_with_cost graph sources sinks =
 
 let remove_additional_nodes graph = 
   let n = size graph - 1 in 
-  let graph_with_node = n_fold graph (fun acc id -> if id < n-1 then (Printf.printf "adding node %d" id ; new_node acc id) else acc) empty_graph in 
+  let graph_with_node = n_fold graph (fun acc id -> if id < n-1 then new_node acc id else acc) empty_graph in 
   e_fold graph (fun acc edge -> if (edge.src >= n-1 || edge.tgt >= n-1) then acc else new_arc acc edge) graph_with_node
