@@ -185,7 +185,6 @@ let successive_shortest_path input_graph s p =
         gap_graph
     | _ ->
         let f = get_min_capa gap_graph path in
-        Printf.printf "La capa min est : %d" f;
         let new_graph = update_graph gap_graph path f in
         aux new_graph
   in
