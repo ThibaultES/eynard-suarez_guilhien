@@ -15,8 +15,11 @@ val size: 'a graph -> int
 (* arc_size g : returns the size (number of arcs) of g *)
 val arc_size: 'a graph -> int
 
+(* Renvoie la liste des arcs non nuls sortant d'un sommet *)
 val out_arcs_no_null : int graph -> id -> int arc list
 
+(* Affiche une liste d'entiers (debuggage) *)
 val display_list : int list -> unit
 
+(* Converti un string graph ou les string contiennent des nombres en int graph *)
 val int_graph_of_string: string graph -> int graph

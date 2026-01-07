@@ -9,7 +9,6 @@
 
 *)
 
-
 type id = int
 
 type 'a arc =
