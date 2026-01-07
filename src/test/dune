@@ -1,5 +1,5 @@
 (executables
- (names ftest toolstest)
+ (names ftest toolstest input_data_test)
  (libraries files graph algos input)
  ;; Disable some warnings
  ;; (flags (:standard -w -6))

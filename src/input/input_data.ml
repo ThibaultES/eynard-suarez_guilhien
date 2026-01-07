@@ -12,6 +12,12 @@ let get_sum_out_vertex_without_cost graph v =
   let outs = out_arcs graph v in 
   List.fold_left (fun acc edge -> acc + edge.lbl) 0 outs
 
+
+let get_sum_in_vertex_without_cost graph v = 
+  e_fold graph (fun acc arc -> if arc.tgt = v then acc + arc.lbl else acc) 0
+
+
+
 let adapt_input_without_cost graph sources sinks = 
   let n = size graph in
   let g = new_node (new_node graph (n)) (n+1) in 
@@ -20,10 +26,12 @@ let adapt_input_without_cost graph sources sinks =
   g_with_sinks
 
 
-
 let get_sum_out_vertex graph v = 
   let outs = out_arcs graph v in 
   List.fold_left (fun acc edge -> let capa,_ = edge.lbl in acc + capa) 0 outs 
+
+let get_sum_in_vertex_with_cost graph v = 
+  e_fold graph (fun acc arc -> let flow,_ = arc.lbl in if arc.tgt = v then acc + flow else acc) 0
 
 let adapt_input_with_cost graph sources sinks = 
   let n = size graph in
