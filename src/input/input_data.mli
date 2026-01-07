@@ -26,5 +26,6 @@ Sortie : Parmis tous les graphes de flux maximal pour cette entrée, celui de co
 (*  *)
 val adapt_input_without_cost : int graph -> id list -> id list -> int graph 
 
-(*  *)
 val adapt_input_with_cost: (int * int) graph -> id list -> id list -> (int * int) graph
+
+val remove_additional_nodes: 'a graph -> 'a graph
