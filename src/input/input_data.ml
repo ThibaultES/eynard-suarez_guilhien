@@ -1,4 +1,5 @@
 open Graph
+open Graph_tools
 
 (*
 
@@ -19,9 +20,9 @@ let get_sum_in_vertex_without_cost graph v =
 
 let adapt_input_without_cost graph sources sinks = 
   let n = n_fold graph (fun n _ -> n+1) 0 in
-  let g = new_node (new_node graph (n+1)) (n+2) in 
-  let g_with_sources = List.fold_left (fun graph id -> new_arc graph {src = n+1; tgt = id; lbl = (get_sum_out_vertex_without_cost graph id)}) g sources in 
-  let g_with_sinks = List.fold_left (fun graph id -> new_arc graph {src = id; tgt = n+2; lbl = (get_sum_in_vertex_without_cost graph id)}) g_with_sources sinks in 
+  let g = new_node (new_node graph (n)) (n+1) in 
+  let g_with_sources = List.fold_left (fun graph id -> new_arc graph {src = n; tgt = id; lbl = (get_sum_out_vertex_without_cost graph id)}) g sources in 
+  let g_with_sinks = List.fold_left (fun graph id -> new_arc graph {src = id; tgt = n+1; lbl = (get_sum_in_vertex_without_cost graph id)}) g_with_sources sinks in 
   g_with_sinks
 
 
@@ -34,8 +35,13 @@ let get_sum_in_vertex_with_cost graph v =
 
 let adapt_input_with_cost graph sources sinks = 
   let n = n_fold graph (fun n _ -> n+1) 0 in
-  let g = new_node (new_node graph (n+1)) (n+2) in 
-  let g_with_sources = List.fold_left (fun graph id -> new_arc graph {src = n+1; tgt = id; lbl = (get_sum_out_vertex graph id, 0)}) g sources in 
-  let g_with_sinks = List.fold_left (fun graph id -> new_arc graph {src = id; tgt = n+2; lbl = (get_sum_in_vertex_with_cost graph id, 0)}) g_with_sources sinks in 
+  let g = new_node (new_node graph (n)) (n+1) in 
+  let g_with_sources = List.fold_left (fun graph id -> new_arc graph {src = n; tgt = id; lbl = (get_sum_out_vertex graph id, 0)}) g sources in 
+  let g_with_sinks = List.fold_left (fun graph id -> new_arc graph {src = id; tgt = n+1; lbl = (get_sum_in_vertex_with_cost graph id, 0)}) g_with_sources sinks in 
   g_with_sinks
   
+
+let remove_additional_nodes graph = 
+  let n = size graph - 1 in 
+  let graph_with_node = n_fold graph (fun acc id -> if id < n-1 then (Printf.printf "adding node %d" id ; new_node acc id) else acc) empty_graph in 
+  e_fold graph (fun acc edge -> if (edge.src >= n-1 || edge.tgt >= n-1) then acc else new_arc acc edge) graph_with_node

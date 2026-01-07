@@ -42,7 +42,10 @@ let () =
   let result = adapt_input_with_cost g6_with_cost [0;2] [3;5] in 
 
   let string_of_int_int (a, b) = Printf.sprintf "%d, %d" a b in 
-
-
+  
+  let result = remove_additional_nodes result in 
+    
    export Sys.argv.(2) (gmap result string_of_int_int)
+
+
 

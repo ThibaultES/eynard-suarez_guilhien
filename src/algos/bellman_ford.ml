@@ -18,7 +18,6 @@ let bellman_ford (graph : 'flow graph) (cost_graph : 'cost graph) (s : id) (p : 
 
   dist.(s) <- 0;
 
-  (* relaxation |V|-1 fois *)
   for _ = 1 to n - 1 do
     for u = 0 to n - 1 do
       if dist.(u) < max_int then
