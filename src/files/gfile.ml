@@ -111,7 +111,8 @@ let from_file path =
   
   close_in infile ;
   final_graph
-  
+
+
 
 let export path graph = 
   let ff = open_out path in 
@@ -126,3 +127,73 @@ let export path graph =
   close_out ff ;
   ()
 
+
+
+(*###########################################################################################################
+#############################################################################################################
+#############################################################################################################
+#############################################################################################################
+############################################################################################################*)
+
+
+(* Reads a line with a node with a type. *)
+let read_node_with_type graph line =
+  try Scanf.sscanf line "n %f %f %d %s" (fun _ _ id typ -> match typ with
+   | "src" -> (new_node graph id, id, true,  false)
+   | "snk" -> (new_node graph id, id, false, true )
+   | _ ->     (new_node graph id, id, false, false)
+   )
+  with e ->
+    Printf.printf "Cannot read node in line - %s:\n%s\n%!" (Printexc.to_string e) line ;
+    failwith "from_file"
+
+
+(* Reads a line with an arc that has a cost. *)
+let read_arc_with_cost graph line =
+  try Scanf.sscanf line "e %d %d %_d %d %d"
+        (fun src tgt lbl cost -> new_arc (ensure (ensure graph src) tgt) { src ; tgt ; lbl=(lbl,cost) } )
+  with e ->
+    Printf.printf "Cannot read arc in line - %s:\n%s\n%!" (Printexc.to_string e) line ;
+    failwith "from_file"
+
+
+let from_file_with_cost path = 
+
+  let src_list = ref [] in
+  let snk_list = ref [] in
+  
+  let infile = open_in path in
+
+  (* Read all lines until end of file. *)
+  let rec loop graph =
+    try
+      let line = input_line infile in
+
+      (* Remove leading and trailing spaces. *)
+      let line = String.trim line in
+
+      let graph2 =
+        (* Ignore empty lines *)
+        if line = "" then graph
+
+        (* The first character of a line determines its content : n or e. *)
+        else match line.[0] with
+          | 'n' -> let next_iter = read_node_with_type graph line in (match next_iter with 
+            | g, id,  true, _ -> src_list := id :: !src_list ; g
+            | g, id,  _ , true -> snk_list := id :: !snk_list; g
+            | g, _, _, _ -> g
+          )
+          | 'e' -> read_arc_with_cost graph line
+
+          (* It should be a comment, otherwise we complain. *)
+          | _ -> read_comment graph line
+      in      
+      loop graph2
+
+    with End_of_file -> graph (* Done *)
+  in
+
+  let final_graph = loop empty_graph in
+  
+  close_in infile ; 
+  final_graph, !src_list, !snk_list

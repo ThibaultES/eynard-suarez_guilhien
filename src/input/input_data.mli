@@ -22,6 +22,8 @@ Entrées : Un graphe G = (S,A) représenté par une liste S de sommets et A d'ar
 
 Sortie : Parmis tous les graphes de flux maximal pour cette entrée, celui de coût minimal.
 *)
+
+(*  *)
 val adapt_input_without_cost : int graph -> id list -> id list -> int graph 
 
 val adapt_input_with_cost: (int * int) graph -> id list -> id list -> (int * int) graph
