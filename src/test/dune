@@ -1,6 +1,6 @@
 (executables
  (names ftest toolstest)
- ;; (libraries )
+ ;; (libraries files graph algos input)
  ;; Disable some warnings
  ;; (flags (:standard -w -6))
  ;; Link to executable in main dir
