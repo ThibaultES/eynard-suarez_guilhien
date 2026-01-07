@@ -8,8 +8,8 @@ all: build
 
 build:
 	@echo "\n   🚨  COMPILING  🚨 \n"
-	dune build src/ftest.exe src/toolstest.exe
-	ls src/*.exe > /dev/null && ln -fs src/*.exe .
+	dune build src/test/ftest.exe src/test/toolstest.exe
+	ls src/test/*.exe > /dev/null && ln -fs src/test/*.exe .
 
 format:
 	ocp-indent --inplace src/*

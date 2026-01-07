@@ -1,7 +1,7 @@
-open Gfile
+open Files.Gfile
 open Graph_tools
 (* open Fold_fulkerson *)
-open Successive_shortest_path
+open Algos.Successive_shortest_path
 
 (* Pour les tests *)
 open Graph

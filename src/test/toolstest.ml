@@ -1,6 +1,5 @@
-open Gfile
-open Tools
-open Fold_fulkerson
+open Files.Gfile
+open Algos.Algo_tools
     
 let () =
 
@@ -22,23 +21,23 @@ let () =
   and outfile2 = Sys.argv.(3) in
 
   (* Open file *)
-  let graph = gmap (from_file infile) int_of_string in
+  let graph = Graph_tools.gmap (from_file infile) int_of_string in
 
 
 
-  let clone_node_result = Tools.clone_nodes graph in 
-  let add_arc_result = Tools.add_arc graph 1 2 5 in 
+  let clone_node_result = Graph_tools.clone_nodes graph in 
+  let add_arc_result = Graph_tools.add_arc graph 1 2 5 in 
 
   (* Rewrite the graph that has been read. *)
   let () = write_file outfile clone_node_result in 
-  let () = write_file outfile2 (gmap add_arc_result string_of_int)
+  let () = write_file outfile2 (Graph_tools.gmap add_arc_result string_of_int)
 
   in 
-  let () = export "graphs/test2.txt" (gmap graph string_of_int)
+  let () = export "graphs/test2.txt" (Graph_tools.gmap graph string_of_int)
   
   
   in
-  let () = export "graphs/testGAP.txt" (gmap (gap_graph (test_graph graph)) string_of_int)
+  let () = export "graphs/testGAP.txt" (Graph_tools.gmap (gap_graph (test_graph graph)) string_of_int)
   
   
 in ()
