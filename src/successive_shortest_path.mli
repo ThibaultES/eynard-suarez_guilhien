@@ -1,7 +1,7 @@
 open Graph
 
 (**)
-val arc_cost: int graph -> int arc -> int -> int
+val arc_cost: int graph -> int arc -> int
 
 (**)
 val dijkstra_path: int graph -> int graph -> id -> id -> id list

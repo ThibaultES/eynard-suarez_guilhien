@@ -62,7 +62,7 @@ let bfs graph s p =
 let rec update_graph graph path flow_to_add = match path with
   | [] -> graph (* finir / en fait on arrive jamais ici ? sauf si c'est ce dont on part *)
   | _::[] -> graph (* on a vu tous les arcs => finir *)
-  | x::y::p -> let graphXY = (add_arc graph x y flow_to_add) in let graphYX  = (add_arc graphXY y x (-flow_to_add)) in
+  | x::y::p -> let graphXY = (add_arc graph x y (-flow_to_add)) in let graphYX  = (add_arc graphXY y x flow_to_add) in
     update_graph graphYX (y::p) flow_to_add
     
 
