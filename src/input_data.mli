@@ -1,3 +1,5 @@
+open Graph
+
 (*
 PROBLÈME I
 

@@ -9,7 +9,7 @@ val test_graph: int graph -> (int * int) graph
 (*. *)
 val flow_graph: id graph -> id graph -> string graph
 
-val flow_graph_no_parent: id graph -> id graph -> string graph
+val flow_graph_no_parentheses: id graph -> id graph -> string graph
 
 (* Fonction renvoyant un chemin dans le graphe d'écart par parcours en largeur *)
 val bfs: int graph -> id -> id -> id list
