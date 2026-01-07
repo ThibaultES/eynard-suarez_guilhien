@@ -1,8 +1,14 @@
-open Gfile
+open Files.Gfile
 open Graph
-open Tools
-open Input_data
+open Graph_tools
+open Input.Input_data
 
+
+let input_graph (graph : 'flow graph) cost_graph_list : ('flow * 'cost) graph =
+  let i = ref (-1) in
+  e_fold graph (fun acc_graph arc -> i := !i + 1 ;
+    new_arc acc_graph {src = arc.src; tgt = arc.tgt; lbl = (arc.lbl, cost_graph_list.(!i))}
+  ) (clone_nodes graph)
 
 let g_test = new_node (new_node (new_node (new_node (new_node empty_graph 0) 1) 2) 3) 4 
 
@@ -23,8 +29,17 @@ let () =
         exit 0
       end ;
 
+  (*Assuming graph6 *)
+  let graph = from_file Sys.argv.(1) in 
+  
+  let cost_graph_6 = [|1; 2; 3; 4; 3; 2; 1; 3; 4|] in 
+
+  let g6_with_cost = input_graph (gmap graph int_of_string) cost_graph_6 in 
+
+  
+
   (*Tested with graph 10 *)
-  let result = adapt_input_with_cost g_test [0;1] [3;4] in 
+  let result = adapt_input_with_cost g6_with_cost [0;2] [3;5] in 
 
   let string_of_int_int (a, b) = Printf.sprintf "%d, %d" a b in 
 

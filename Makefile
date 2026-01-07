@@ -8,7 +8,7 @@ all: build
 
 build:
 	@echo "\n   🚨  COMPILING  🚨 \n"
-	dune build src/test/ftest.exe src/test/toolstest.exe
+	dune build src/test/ftest.exe src/test/toolstest.exe src/test/input_data_test.exe
 	ls src/test/*.exe > /dev/null && ln -fs src/test/*.exe .
 
 format:

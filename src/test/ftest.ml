@@ -6,6 +6,7 @@ open Algos.Successive_shortest_path
 (* Pour les tests *)
 open Graph
 let cost_graph_6 = [|1; 2; 3; 4; 3; 2; 1; 3; 4|]
+
 let input_graph (graph : 'flow graph) cost_graph_list : ('flow * 'cost) graph =
   let i = ref (-1) in
   e_fold graph (fun acc_graph arc -> i := !i + 1 ;
