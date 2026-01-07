@@ -22,7 +22,7 @@ let adapt_input_without_cost graph sources sinks =
   let n = size graph in
   let g = new_node (new_node graph (n)) (n+1) in 
   let g_with_sources = List.fold_left (fun graph id -> new_arc graph {src = n; tgt = id; lbl = (get_sum_out_vertex_without_cost graph id)}) g sources in 
-  let g_with_sinks = List.fold_left (fun graph id -> new_arc graph {src = id; tgt = n+1; lbl = (get_sum_out_vertex_without_cost graph id)}) g_with_sources sinks in 
+  let g_with_sinks = List.fold_left (fun graph id -> new_arc graph {src = id; tgt = n+1; lbl = (get_sum_in_vertex_without_cost graph id)}) g_with_sources sinks in 
   g_with_sinks
 
 
