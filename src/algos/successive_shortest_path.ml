@@ -17,7 +17,7 @@ let main_graph (input_graph : ('flow * 'cost) graph) : 'flow graph =
   : string graph =
 
   let main_graph = main_graph input_graph in
-  let cost_graph = cost_graph input_graph in
+  let cost_graph = update_cost_graph (cost_graph input_graph) in
 
   let rec aux gap_graph =
     let path, _ =
@@ -28,6 +28,8 @@ let main_graph (input_graph : ('flow * 'cost) graph) : 'flow graph =
         gap_graph
     | _ ->
         let f = get_min_capa gap_graph path in
+        display_list path;
+        Printf.printf "\n";
         let new_graph = update_graph gap_graph path f in
         aux new_graph
   in

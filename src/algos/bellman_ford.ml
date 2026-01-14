@@ -1,15 +1,6 @@
 open Graph
 open Graph_tools
-
-
-let arc_cost (cost_graph : 'cost graph) (arc : 'flow arc) : 'cost =
-  match find_arc cost_graph arc.src arc.tgt with
-  | None -> (match find_arc cost_graph arc.tgt arc.src with 
-    | None -> failwith "Là je comprends plus..."
-    | Some a -> (- a.lbl)
-  )
-  | Some a -> a.lbl
-
+open Algo_tools
 
 let bellman_ford (graph : 'flow graph) (cost_graph : 'cost graph) (s : id) (p : id) : id list * int array =
   let n = size graph in

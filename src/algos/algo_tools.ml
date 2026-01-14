@@ -38,8 +38,19 @@ let get_min_capa graph path =
                 )
 in aux_get_min_capa graph path max_int
 
+let arc_cost (cost_graph : 'cost graph) (arc : 'flow arc) : 'cost =
+  match find_arc cost_graph arc.src arc.tgt with
+  | None -> (match find_arc cost_graph arc.tgt arc.src with 
+    | None -> failwith "Là je comprends plus..."
+    | Some a -> (- a.lbl)
+  )
+  | Some a -> a.lbl
+
 let rec update_graph graph path flow_to_add = match path with
   | [] -> graph (* finir / en fait on arrive jamais ici ? sauf si c'est ce dont on part *)
   | _::[] -> graph (* on a vu tous les arcs => finir *)
   | x::y::p -> let graphXY = (add_arc graph x y (-flow_to_add)) in let graphYX  = (add_arc graphXY y x flow_to_add) in
     update_graph graphYX (y::p) flow_to_add
+
+let update_cost_graph cost_graph =
+  e_fold cost_graph (fun g arc -> add_arc g arc.tgt arc.src (-arc.lbl)) (cost_graph)

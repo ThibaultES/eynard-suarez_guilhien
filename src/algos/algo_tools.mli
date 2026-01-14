@@ -15,5 +15,11 @@ val flow_graph_no_parentheses: id graph -> id graph -> string graph
 (* Fonction renvoyant le flot a ajouter sur le graphe a la prochaine iteration *)
 val get_min_capa : int graph -> id list -> int
 
+(* Fonction renvoyant le coût d'un arc *)
+val arc_cost: int graph -> int arc -> int
+
 (* Fonction mettant a jour le graphe d'écart en fonction du chemin trouvé *)
 val update_graph: int graph -> id list -> id -> int graph
+
+(* Fonction mettant a jour le graphe d'écart en fonction du chemin trouvé *)
+val update_cost_graph: int graph -> int graph
